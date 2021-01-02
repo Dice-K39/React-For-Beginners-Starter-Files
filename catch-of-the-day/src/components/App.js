@@ -2,9 +2,38 @@ import React, { Component } from 'react';
 import Header from "./Header";
 import Order from "./Order";
 import Inventory from "./Inventory";
+import sampleFishes from "../sample-fishes";
 
 class App extends Component
 {
+    state = 
+    {
+        fishes: {},
+        order: {}
+    };
+
+    addFish = fish =>
+    {
+        const fishes = {...this.state.fishes};
+
+        fishes[`fish${Date.now()}`] = fish;
+        this.setState(
+            {
+                fishes
+                //fishes: fishes
+            }
+        );
+    }
+
+    loadSampleFishes = () =>
+    {
+        this.setState(
+            {
+                fishes: sampleFishes
+            }
+        );
+    }
+
     render()
     {
         return (
@@ -14,8 +43,10 @@ class App extends Component
                 </div>
 
                 <Order />
-                <Inventory />
-
+                <Inventory 
+                    addFish={this.addFish} 
+                    loadSampleFishes={this.loadSampleFishes}
+                />
             </div>
         )
     }
